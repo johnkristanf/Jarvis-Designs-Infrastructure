@@ -14,7 +14,7 @@ resource "aws_iam_role" "web_server_role" {
   })
 }
 
-resource "aws_iam_policy" "s3_access_role" {
+resource "aws_iam_policy" "s3_access_policy" {
   name        = "web-server-s3-policy"
   description = "Allow Web Server to access S3 bucket"
 
@@ -50,7 +50,7 @@ resource "aws_iam_policy" "s3_access_role" {
 # Attach s3 access policy to the IAM role
 resource "aws_iam_role_policy_attachment" "web_server_role_policy_attach" {
   role       = aws_iam_role.web_server_role.name
-  policy_arn = aws_iam_policy.s3_access_role.arn
+  policy_arn = aws_iam_policy.s3_access_policy.arn
 }
 
 

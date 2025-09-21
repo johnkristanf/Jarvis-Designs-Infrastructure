@@ -27,6 +27,8 @@ resource "aws_subnet" "private_b" {
   availability_zone = "ap-southeast-1b"
 }
 
+
+# INTERNET GATEWAY + ROUTE TABLE
 resource "aws_internet_gateway" "igw" {
   vpc_id = aws_vpc.main.id
 }

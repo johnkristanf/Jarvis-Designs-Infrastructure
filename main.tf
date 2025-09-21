@@ -29,6 +29,11 @@ module "ec2" {
   instance_profile_name = module.iam.instance_profile_name
 }
 
+module "s3" {
+  source = "./modules/s3"
+  aws_s3_bucket_name = var.aws_s3_bucket_name
+}
+
 
 module "rds" {
   source            = "./modules/rds"

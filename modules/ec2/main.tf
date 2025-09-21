@@ -55,7 +55,7 @@ resource "aws_instance" "server" {
   }
 }
 
-
+# ELASTIC IP ADDRESS
 resource "aws_eip" "web_server_eip" {
   instance = aws_instance.server.id
 }
