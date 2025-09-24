@@ -17,7 +17,8 @@ module "security_group" {
 
 module "iam" {
   source         = "./modules/iam"
-  s3_bucket_name = var.aws_s3_bucket_name
+  s3_bucket_name = var.aws_s3_bucket_name 
+  main_standard_queue_arn = module.sqs.main_standard_queue_arn
 }
 
 module "ec2" {
@@ -44,3 +45,9 @@ module "rds" {
   db_username = var.db_username
   db_password = var.db_password
 }
+
+
+module "sqs" {
+  source = "./modules/sqs"
+  queue_name = "jarvis-designs-order"
+} 

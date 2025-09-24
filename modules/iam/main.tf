@@ -47,12 +47,41 @@ resource "aws_iam_policy" "s3_access_policy" {
 }
 
 
+resource "aws_iam_policy" "sqs_access_policy" {
+  name        = "web-server-sqs-policy"
+  description = "Allow Web Server to access SQS queue"
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "sqs:SendMessage",
+          "sqs:ReceiveMessage",
+          "sqs:DeleteMessage",
+          "sqs:GetQueueAttributes",
+          "sqs:GetQueueUrl"
+        ]
+        Resource = var.main_standard_queue_arn
+      }
+    ]
+  })
+}
+
+
 # Attach s3 access policy to the IAM role
-resource "aws_iam_role_policy_attachment" "web_server_role_policy_attach" {
+resource "aws_iam_role_policy_attachment" "s3_access_policy_attach" {
   role       = aws_iam_role.web_server_role.name
   policy_arn = aws_iam_policy.s3_access_policy.arn
 }
 
+
+# Attach sqs access policy to the IAM role
+resource "aws_iam_role_policy_attachment" "sqs_access_policy_attach" {
+  role = aws_iam_role.web_server_role.name
+  policy_arn = aws_iam_policy.sqs_access_policy.arn
+}
 
 # Create instance profile with attach role
 resource "aws_iam_instance_profile" "web_server_profile" {
