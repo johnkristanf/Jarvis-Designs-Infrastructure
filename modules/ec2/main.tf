@@ -1,17 +1,30 @@
-data "aws_ami" "ubuntu" {
+data "aws_ami" "ubuntu_latest" {
   most_recent = true
-  owners      = ["099720109477"] // Canonical's (company created ubuntu) AWS account ID for Ubuntu Images
+  owners      = ["099720109477"] # Canonical's AWS account ID
 
+  # Use filters to match the latest Ubuntu Noble 24.04 LTS 64-bit Server HVM SSD AMI
   filter {
     name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-jammy-22.04-amd64-server-*"]
+    # Replace noble-24.04 with the appropriate version if you need a different release
+    values = ["ubuntu/images/hvm-ssd-gp3/ubuntu-noble-24.04-amd64-server-*"]
   }
 
   filter {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+
+  filter {
+    name   = "architecture"
+    values = ["x86_64"]
+  }
 }
+
 
 
 # EC2 Key Pair (SSH usage)
@@ -21,7 +34,7 @@ resource "aws_key_pair" "web_server_kp" {
 }
 
 resource "aws_instance" "server" {
-  ami           = data.aws_ami.ubuntu.id
+  ami           = data.aws_ami.ubuntu_latest.id
   region        = var.region
   instance_type = var.instance_type
   subnet_id     = var.subnet_id
@@ -37,6 +50,10 @@ resource "aws_instance" "server" {
     volume_type = "gp3"
     delete_on_termination = true
     encrypted = true
+
+    tags = {
+      Name = "Jarvis Designs Root Volume"
+    }
   }
 
 
@@ -58,4 +75,7 @@ resource "aws_instance" "server" {
 # ELASTIC IP ADDRESS
 resource "aws_eip" "web_server_eip" {
   instance = aws_instance.server.id
+  tags = {
+    Name = "Web server main elastic IP"
+  }
 }
