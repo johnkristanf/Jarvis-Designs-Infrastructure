@@ -2,7 +2,7 @@ variable "instance_profile_name" {
   description = "AWS EC2 Instance Profile Name"
 }
 
-variable "subnet_id" {
+variable "public_subnet_id" {
   description = "AWS EC2 Subnet ID"
 }
 

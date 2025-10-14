@@ -63,7 +63,10 @@ resource "aws_iam_policy" "sqs_access_policy" {
           "sqs:GetQueueAttributes",
           "sqs:GetQueueUrl"
         ]
-        Resource = var.main_standard_queue_arn
+        Resource = [
+          var.main_standard_queue_arn,
+          var.main_standard_dlq_arn
+        ]
       }
     ]
   })

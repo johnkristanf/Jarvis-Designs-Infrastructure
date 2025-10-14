@@ -25,3 +25,7 @@ override.tf.json
 terraform.rc
 
 *.tfplan
+
+
+jd-key-pair.pub
+jd-key-pair

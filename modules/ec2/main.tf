@@ -30,14 +30,14 @@ data "aws_ami" "ubuntu_latest" {
 # EC2 Key Pair (SSH usage)
 resource "aws_key_pair" "web_server_kp" {
   key_name   = "jarvis-designs-kp"
-  public_key = file("~/.ssh/jd-key-pair.pub")
+  public_key = file("jd-key-pair.pub") // This file will be mounted inside the terraform docker container
 }
 
 resource "aws_instance" "server" {
   ami           = data.aws_ami.ubuntu_latest.id
   region        = var.region
   instance_type = var.instance_type
-  subnet_id     = var.subnet_id
+  subnet_id     = var.public_subnet_id
 
   associate_public_ip_address = true
   key_name                    = aws_key_pair.web_server_kp.key_name

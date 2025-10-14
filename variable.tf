@@ -8,7 +8,7 @@ variable "aws_region" {
 variable "aws_profile" {
   description = "The AWS Cli Profile"
   type        = string
-  default     = "johnkristan.torremocha01"
+  default     = "lilibethtorremocha01"
 }
 
 
@@ -25,19 +25,19 @@ variable "vpc_cidr_block" {
 }
 
 
-variable "db_name" {
-  description = "Database name for the RDS instance"
-  type        = string
-}
+# variable "db_name" {
+#   description = "Database name for the RDS instance"
+#   type        = string
+# }
 
-variable "db_username" {
-  description = "Master username for RDS"
-  type        = string
-  sensitive   = true
-}
+# variable "db_username" {
+#   description = "Master username for RDS"
+#   type        = string
+#   sensitive   = true
+# }
 
-variable "db_password" {
-  description = "Master password for RDS"
-  type        = string
-  sensitive   = true
-}
+# variable "db_password" {
+#   description = "Master password for RDS"
+#   type        = string
+#   sensitive   = true
+# }
