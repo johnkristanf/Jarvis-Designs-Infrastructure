@@ -8,14 +8,14 @@ variable "aws_region" {
 variable "aws_profile" {
   description = "The AWS Cli Profile"
   type        = string
-  default     = "lilibethtorremocha01"
+  default     = "jarvisdesigns01.administrator"
 }
 
 
 variable "aws_s3_bucket_name" {
   description = "AWS S3 Bucket Name"
   type        = string
-  default     = "jarvis-designs"
+  default     = "jarvis-designs-production"
 }
 
 
